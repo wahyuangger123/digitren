@@ -1,4 +1,23 @@
 import LoginPage from './LoginPage.png'
 import navbar from './navbar.png'
+import iconwallet from './iconwallet.png'
+import Userlogin from './Userlogin.png'
+import bayar from './bayar.png'
+import buttonqr from './buttonqr.png'
+import bgcash from './bgcash.png'
+import Paysucces from './Paysucces.png'
+import tigahome from './tigahome.png'
+import walletsatu from './walletsatu.png'
+import gambarsatu from './gambarsatu.png'
+import gambardua from './gambardua.png'
+import gambartiga from './gambartiga.png'
+import dropdownsatu from './dropdownsatu.png'
+import dropdowndua from './dropdowndua.png'
+import dropdowntiga from './dropdowntiga.png'
+import histori from './histori.png'
+import Pembayaran from './Pembayaran.png'
+import bggantipassword from './bggantipassword.png'
+import bglupapassword from './bglupapassword.png'
 
-export {LoginPage ,navbar};
+
+export {bglupapassword,bggantipassword,Pembayaran,histori,dropdownsatu,dropdowndua,dropdowntiga,gambartiga,gambardua,gambarsatu,Paysucces,LoginPage,walletsatu,navbar,tigahome,iconwallet,Userlogin,bayar,buttonqr,bgcash};

@@ -1,11 +1,26 @@
 import React from "react";
-import {Text} from "react-native";
-
+import {Text,StyleSheet ,View ,ImageBackground,} from "react-native";
+import { Pembayaran } from "../assets";
 
 export const Tagihan = ({navigation}) => {
     return (
         <>
-        <Text>Tagihan</Text>
+        <View style={styles.containerTop}>
+        <ImageBackground source={Pembayaran} style={styles.userdua}>
+        </ImageBackground>
+        </View>
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    containerTop:{
+        height:750,
+        width:410,
+        backgroundColor:"white",
+    },
+    userdua:{
+        height:350,
+        width:400,
+    }
+})

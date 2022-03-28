@@ -1,8 +1,9 @@
 import React from "react";
 import {Text ,StyleSheet,View,TouchableOpacity,ImageBackground} from "react-native";
 import { Userlogin } from "../assets";
+import { histori } from "../assets";
 
-export const Wallet = ({navigation}) => {
+export const Riwayat = ({navigation}) => {
     return (
         <>
         <View style={styles.containerTop}>
@@ -16,20 +17,32 @@ export const Wallet = ({navigation}) => {
         </View>
         <View style={styles.containerBottom}>
         <TouchableOpacity
-        style={[styles.button_satu, { height: 50,width:150 }]}
+        style={[styles.button_satu, {  height: 50,width:150   }]}
                 onPress={() => {
-                navigation.navigate('walletnext');
+                navigation.navigate('backwallet');
                 }}>
                     <Text style={{ color: "black", fontSize: 18,left:22,top:10, }}>Top Up Saldo</Text>
         </TouchableOpacity>
         <View style={styles.satu}>
         <TouchableOpacity
-        style={[styles.button_satu, { height: 50,width:260,top:-17 }]}
-                onPress={() => {
-                navigation.navigate('riwayatnext');
-                }}>
-                    <Text style={{ color: "black", fontSize: 18,left:70,top:10, }}>Riwayat</Text>
+        style={[styles.button_satu, { height: 50,width:265,top:-17 }]}
+        onPress={() => {
+            navigation.navigate('backriwayat');
+        }}>
+                    <Text style={{ color: "black",fontSize: 18,left:70,top:10, }}>Riwayat</Text>
         </TouchableOpacity>
+        </View>
+        <View style={{bottom:50}}>
+        <View style={styles.viewhistori}>
+        <ImageBackground source={histori} style={styles.gmbrhistori}>
+            </ImageBackground>
+            <View style={styles.textview}>
+           <Text style={styles.textpertama}>Warung makan</Text>
+           <Text style={styles.textdua}>Rp 5000</Text>
+           <Text style={styles.texttiga}>25 januari 2021</Text>
+           </View>
+        </View>
+        <View style={styles.line}/>
         </View>
         </View>
         </>
@@ -51,7 +64,8 @@ const styles = StyleSheet.create({
         backgroundColor:'#1B5E20' ,
     },
     containerBottom:{
-        height:650,
+        height:670,
+        width:410,
         backgroundColor:'white',
     },
     userdua: {
@@ -78,5 +92,37 @@ const styles = StyleSheet.create({
     satu:{
         left:150,
         bottom:33,
+    },
+    viewhistori:{
+        flexDirection:"row",
+        marginBottom:75,
+    },
+    gmbrhistori:{
+        height:100,
+        width:80,
+        borderRadius:100,
+    },
+    textview:{
+        marginLeft:10,
+        marginTop:20,
+    },
+    textpertama:{
+        fontSize:18,
+        fontWeight:'bold',
+    },
+    textdua:{
+        fontSize:16,
+
+    },
+    texttiga:{
+        fontSize:12,
+        marginTop:8,
+    },
+    line:{
+        height:2,
+        backgroundColor:'#424242',
+        marginVertical:-60,
+        width:380,
+        left:15,
     }
 });
