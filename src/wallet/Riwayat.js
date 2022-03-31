@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState,useEffect }  from "react";
 import {Text ,StyleSheet,View,TouchableOpacity,ImageBackground} from "react-native";
 import { Userlogin } from "../assets";
 import { histori } from "../assets";
+import axios from "axios";
+import currencyFormatter from "../HelperFunction/formatter";
+
+const BASE_PATH ="http://17f8-182-253-183-2.ngrok.io";
+const userID= 13;
 
 export const Riwayat = ({navigation}) => {
+    const [saldo,setSaldo] = useState(0);
+        
+    async function getsaldo(){
+      await axios.get(`${BASE_PATH}/saldo/${userID}`)
+      .then((result) => {
+        setSaldo(result.data.data[0].saldo);
+        // console.log(result.data.data[0].saldo);
+      })
+      .catch((error) =>{
+        console.log(error);
+      })
+    };
+    console.log(saldo);
+    useEffect(()=> {
+      getsaldo();
+    }, []);
+
     return (
         <>
         <View style={styles.containerTop}>
@@ -11,7 +33,7 @@ export const Riwayat = ({navigation}) => {
         </View>
         <View style={styles.containerCenter}>
         <Text style={{ color: "white", fontSize: 17,left:10,top:17, }}>Saldo</Text>
-        <Text style={{ color: "white", fontSize: 20,left:10,top:20, }}>Rp.50000</Text>
+        <Text style={{ color: "white", fontSize: 20,left:10,top:20, }}>Rp{currencyFormatter(saldo)}</Text>
         <ImageBackground source={Userlogin} style={styles.userdua}>
             </ImageBackground>
         </View>

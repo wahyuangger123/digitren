@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {Text ,StyleSheet,View,TouchableOpacity,ImageBackground,ScrollView} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Userlogin } from "../assets";
@@ -6,6 +6,12 @@ import { Dropdown } from "./Dropdown";
 import { Dropdownbca } from "./Dropdownbca";
 import { Dropdownbri } from "./Dropdownbri";
 import { DropdownMandiri } from "./DropdownMandiri";
+import axios from "axios";
+import currencyFormatter from "../HelperFunction/formatter";
+
+const BASE_PATH ="http://17f8-182-253-183-2.ngrok.io";
+const userID= 13;
+
 
 let banksatu =[{id:1,name:'Va 938383839399 dowqkfwqofjwqfjfddddddddddddddddddddddd'}];
 let bankdua =[{id:2,name:'Top saldo CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCDDDDDDDDDDDDDD'}];
@@ -15,6 +21,23 @@ let bankempat =[{id:4,name:'Top saldo xxxxxxxxxxxxxxxxxCCCCCCCCCCCCCCCCCCCCCCCCC
 export const Topupsaldo = ({navigation}) => {
 
         const [selectedItem,setSelectedItem] = useState(null)
+
+        const [saldo,setSaldo] = useState(0);
+        
+    async function getsaldo(){
+      await axios.get(`${BASE_PATH}/saldo/${userID}`)
+      .then((result) => {
+        setSaldo(result.data.data[0].saldo);
+        // console.log(result.data.data[0].saldo);
+      })
+      .catch((error) =>{
+        console.log(error);
+      })
+    };
+    console.log(saldo);
+    useEffect(()=> {
+      getsaldo();
+    }, []);
 
         // const onSelect = (item) => {
         //   setSelectedItem (item)
@@ -27,7 +50,7 @@ export const Topupsaldo = ({navigation}) => {
         </View>
         <View style={styles.containerCenter}>
         <Text style={{ color: "white", fontSize: 17,left:10,top:17, }}>Saldo</Text>
-        <Text style={{ color: "white", fontSize: 20,left:10,top:20, }}>Rp.50000</Text>
+        <Text style={{ color: "white", fontSize: 20,left:10,top:20, }}>Rp{currencyFormatter(saldo)}</Text>
         <ImageBackground source={Userlogin} style={styles.userdua}>
             </ImageBackground>
         </View>

@@ -1,17 +1,23 @@
-import React from "react";
-import { Animated, Modal, Image, Text, StyleSheet, View, ImageBackground, TouchableOpacity, ScrollView, } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ToastAndroid,Animated, Modal, Image, Text, StyleSheet, View, ImageBackground, TouchableOpacity, ScrollView, Alert, } from "react-native";
 import { iconwallet } from "../assets/images";
-import { Userlogin } from "../assets";
+// import { Userlogin } from "../assets";
 import { tigahome } from "../assets";
 import { walletsatu } from "../assets";
 import { gambarsatu } from "../assets";
 import { gambardua } from "../assets";
 import { gambartiga } from "../assets";
+import axios from "axios";
+import currencyFormatter from "../HelperFunction/formatter";
+import { Avatar ,Button} from "react-native-paper";
+import { launchImageLibrary } from "react-native-image-picker";
 // import { BlurView } from "@react-native-community/blur";
 // import { Button } from "react-native-elements";
 
+const BASE_PATH ="http://17f8-182-253-183-2.ngrok.io";
+const userID= 13;
 
-//modalpoup
+
 const ModalPoup = ({ visible, children }) => {
     const [showModal, setShowModal] = React.useState(visible);
     const scaleValue = React.useRef(new Animated.Value(0)).current;
@@ -54,6 +60,53 @@ const ModalPoup = ({ visible, children }) => {
 export const Beranda = ({ navigation }) => {
     const [visible, setVisible] = React.useState(false);
 
+    const [saldo,setSaldo] = useState(0);
+
+    const [Pic,SetPic]= React.useState('');
+
+    const setToastMsg = msg => {
+        ToastAndroid,showWithGravity(msg,ToastAndroid.SHORT,ToastAndroid.CENTER);
+    };
+
+    const uploadImage = () => {
+        let options = {
+            mediaType: 'photo',
+            quality: 1,
+            includeBasse64: true,
+        };
+
+        launchImageLibrary(options,response => {
+            if(response.didCancel) {
+                setToastMsg('Cancellied image selection');
+            }else if (response.errorCode =='permission') {
+                setToastMsg('permission not satisfied');
+            }else if (response.errorCode =='others') {
+                setToastMsg(response.errorMessage);
+            }else if(response.assets[0].fileSize > 2097152) {
+                Alert.alert('Maximum image size exceeded','Please choose image under 2 MB',
+                [{text:'oke'}],
+                );
+            } else {
+                SetPic(response.assets[0],base64);
+            }
+        });
+    };
+        
+    async function getsaldo(){
+      await axios.get(`${BASE_PATH}/saldo/${userID}`)
+      .then((result) => {
+        setSaldo(result.data.data[0].saldo);
+        // console.log(result.data.data[0].saldo);
+      })
+      .catch((error) =>{
+        console.log(error);
+      })
+    };
+    console.log(saldo);
+    useEffect(()=> {
+      getsaldo();
+    }, []);
+
     return (
         <>
             <ScrollView>
@@ -65,18 +118,22 @@ export const Beranda = ({ navigation }) => {
                             <TouchableOpacity
                                 onPress={() => setVisible(false)}
                             >
-                                    <Text style={{ fontSize: 20, height: 25, bottom: 10 }}>X</Text>
+                                    <Text style={{ fontSize: 20, height: 25, bottom: 10 ,}}>X</Text>
                             </TouchableOpacity>
                                 </View>
                             </View>
-                                <Text style={{ marginVertical: 30, fontSize: 20, textAlign: 'center' }}>tessssssssssssssssssssssssssssssssssssssssssss</Text>
+                            <View
+                            style={{top:1}}>
+                                <Button mode="contained" onPress={() => uploadImage()}>uploadImage</Button>
+                                <Button mode="contained" style={{top:10,}} onPress={() => uploadImage()}>RemoveImage</Button>
+                            </View>
                         </ModalPoup>
-                        <TouchableOpacity style={{height: 40,width: 50,left:350,top:5,backgroundColor:'white'}}
+                        <TouchableOpacity style={{height: 40,width: 50,left:350,top:5,backgroundColor:'black'}}
                             onPress={() => setVisible(true)}
-                        >
-                        <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                        <ImageBackground source={Userlogin} style={styles.userdua}></ImageBackground>
-                        </View>
+                            underlaycolor="rgba(0,0,0,0)">
+                        <Avatar.Image  style={{height:45,width:45,justifyContent: "center",bottom:1,}}
+                        source={{url:'data:image/png;base64,'+Pic}}/>
+                        {/* <ImageBackground source={Userlogin} style={styles.userdua}></ImageBackground> */}
                         </TouchableOpacity>
                         
                     </View>
@@ -84,7 +141,7 @@ export const Beranda = ({ navigation }) => {
                 </View>
                 <View style={styles.containerCenter}>
                     <ImageBackground source={iconwallet} style={styles.iconw}>
-                        <Text style={styles.usertiga}>Rp.50000</Text>
+                        <Text style={styles.usertiga}>Rp{currencyFormatter(saldo)}</Text>
                         <TouchableOpacity style={[styles.buttonbayar, { height: 35, width: 28, }]}
                             onPress={() => {
                                 navigation.navigate('Bayar');
@@ -230,7 +287,7 @@ const styles = StyleSheet.create({
     },
     header: {
         width: '100%',
-        height: 10,
+        height: 50,
         alignItems: "flex-end",
     },
 });
