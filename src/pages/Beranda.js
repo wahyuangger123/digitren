@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ToastAndroid,Animated, Modal, Image, Text, StyleSheet, View, ImageBackground, TouchableOpacity, ScrollView, Alert, } from "react-native";
+import { ToastAndroid, Animated, Modal, Image, Text, StyleSheet, View, ImageBackground, TouchableOpacity, ScrollView, Alert, ImagePickerIOS, } from "react-native";
 import { iconwallet } from "../assets/images";
 // import { Userlogin } from "../assets";
 import { tigahome } from "../assets";
@@ -9,13 +9,14 @@ import { gambardua } from "../assets";
 import { gambartiga } from "../assets";
 import axios from "axios";
 import currencyFormatter from "../HelperFunction/formatter";
-import { Avatar ,Button} from "react-native-paper";
+import { Avatar, Button } from "react-native-paper";
 import { launchImageLibrary } from "react-native-image-picker";
+import { useSelector } from "react-redux";
 // import { BlurView } from "@react-native-community/blur";
 // import { Button } from "react-native-elements";
 
-const BASE_PATH ="http://17f8-182-253-183-2.ngrok.io";
-const userID= 13;
+const BASE_PATH = "http://17f8-182-253-183-2.ngrok.io";
+const userID = 13;
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -58,53 +59,64 @@ const ModalPoup = ({ visible, children }) => {
 
 
 export const Beranda = ({ navigation }) => {
+    const totalNominal =useSelector ((state) => state.totalNominal);
+    console.log("Halaman Beranda: ",totalNominal);
+
     const [visible, setVisible] = React.useState(false);
 
-    const [saldo,setSaldo] = useState(0);
+    const [saldo, setSaldo] = useState(0);
 
-    const [Pic,SetPic]= React.useState('');
+    const [Pic, SetPic] = React.useState('');
 
     const setToastMsg = msg => {
-        ToastAndroid,showWithGravity(msg,ToastAndroid.SHORT,ToastAndroid.CENTER);
+        ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER);
     };
 
     const uploadImage = () => {
         let options = {
             mediaType: 'photo',
             quality: 1,
-            includeBasse64: true,
+            includeBase64: true,
         };
 
-        launchImageLibrary(options,response => {
-            if(response.didCancel) {
-                setToastMsg('Cancellied image selection');
-            }else if (response.errorCode =='permission') {
+        launchImageLibrary(options, response => {
+
+            if (response.didCancel) {
+                setToastMsg('Cancelled image selection');
+            } else if (response.errorCode == 'permission') {
                 setToastMsg('permission not satisfied');
-            }else if (response.errorCode =='others') {
+            } else if (response.errorCode == 'others') {
                 setToastMsg(response.errorMessage);
-            }else if(response.assets[0].fileSize > 2097152) {
+            } else if (response.assets[0].fileSize > 2097152) {
                 Alert.alert('Maximum image size exceeded','Please choose image under 2 MB',
-                [{text:'oke'}],
+                    [{ text: 'oke' }],
                 );
             } else {
-                SetPic(response.assets[0],base64);
+                SetPic(response.assets[0].base64);
             }
         });
     };
-        
-    async function getsaldo(){
-      await axios.get(`${BASE_PATH}/saldo/${userID}`)
-      .then((result) => {
-        setSaldo(result.data.data[0].saldo);
-        // console.log(result.data.data[0].saldo);
-      })
-      .catch((error) =>{
-        console.log(error);
-      })
+
+const removeImage =() => {
+    SetPic('')
+    setToastMsg('Image removed');
+}
+
+
+//get saldo
+    async function getsaldo() {
+        await axios.get(`${BASE_PATH}/saldo/${userID}`)
+            .then((result) => {
+                setSaldo(result.data.data[0].saldo);
+                // console.log(result.data.data[0].saldo);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     };
     console.log(saldo);
-    useEffect(()=> {
-      getsaldo();
+    useEffect(() => {
+        getsaldo();
     }, []);
 
     return (
@@ -115,27 +127,28 @@ export const Beranda = ({ navigation }) => {
                         <ModalPoup visible={visible}>
                             <View style={{ alignItems: 'center' }}>
                                 <View style={styles.header}>
-                            <TouchableOpacity
-                                onPress={() => setVisible(false)}
-                            >
-                                    <Text style={{ fontSize: 20, height: 25, bottom: 10 ,}}>X</Text>
-                            </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => setVisible(false)}
+                                    >
+                                        <Text style={{ fontSize: 20, height: 25, bottom: 10, }}>X</Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                             <View
-                            style={{top:1}}>
+                                style={{ top: 1 }}>
                                 <Button mode="contained" onPress={() => uploadImage()}>uploadImage</Button>
-                                <Button mode="contained" style={{top:10,}} onPress={() => uploadImage()}>RemoveImage</Button>
+                                <Button mode="contained" style={{ top: 10, }} onPress={() => removeImage()}>RemoveImage</Button>
                             </View>
                         </ModalPoup>
-                        <TouchableOpacity style={{height: 40,width: 50,left:350,top:5,backgroundColor:'black'}}
-                            onPress={() => setVisible(true)}
+                        <TouchableOpacity style={{ height: 40, width: 50, left: 350, top: 5 }}
+                            onPress={() => (setVisible(true))
+                            }
                             underlaycolor="rgba(0,0,0,0)">
-                        <Avatar.Image  style={{height:45,width:45,justifyContent: "center",bottom:1,}}
-                        source={{url:'data:image/png;base64,'+Pic}}/>
-                        {/* <ImageBackground source={Userlogin} style={styles.userdua}></ImageBackground> */}
+                            <Avatar.Image style={{ height: 45, width: 45, justifyContent: "center", bottom: 1, }}
+                                source={{ uri: 'data:image/png;base64,' + Pic}} />
+                            {/* <ImageBackground source={Userlogin} style={styles.userdua}></ImageBackground> */}
                         </TouchableOpacity>
-                        
+
                     </View>
                     <Text style={styles.usersatu}>Hello Word</Text>
                 </View>

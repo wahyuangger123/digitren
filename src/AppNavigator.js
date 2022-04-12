@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import react from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet ,Text, View , Image ,TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import { UserLogin } from "./UserLogin";
@@ -21,6 +21,9 @@ import { Antarwallet } from './antarwallet/Antarwallet';
 import { Walletberhasil } from './antarwallet/Walletberhasil';
 import { Gantipassword } from './Gantipassword/Gantipassword';
 import { Lupapassword } from './Gantipassword/Lupapassword';
+import { Pinantarwallet } from './antarwallet/Pinantarwallet';
+import { Homeantar } from './antarwallet/Homeantar';
+
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -74,13 +77,15 @@ export const AppNavigator = () => {
                 <Stack.Screen name={"riwayat"} component={Riwayat} options= {{headerShown: false}}/>
                 <Stack.Screen name={"backriwayat"} component={Riwayat} options= {{headerShown: false}}/>
                 <Stack.Screen name={"isisaldo"} component={Topupsaldo} options= {{headerShown: false}}/>
-                <Stack.Screen name={"transferantarwallet"} component={Antarwallet} options= {{headerShown: false}}/>
+                <Stack.Screen name={"transferantarwallet"} component={Homeantar} options= {{headerShown: false}}/>
                 <Stack.Screen name={"antarhistori"} component={Riwayat} options= {{headerShown: false}}/>
-                <Stack.Screen name={"nextberhasil"} component={Walletberhasil} options= {{headerShown: false}}/>
+                <Stack.Screen name={"nextpin"} component={Pinantarwallet} options= {{headerShown: false}}/>
                 <Stack.Screen name={"nextberandawallet"} component={TopNavigator} options= {{headerShown: false}}/>
                 <Stack.Screen name={"Gantipass"} component={Gantipassword} options= {{headerShown: false}}/>
                 <Stack.Screen name={"nextlupapassword"} component={Lupapassword} options= {{headerShown: false}}/>
-
+                <Stack.Screen name={"nextberhasil"} component={Walletberhasil} options= {{headerShown: false}}/>
+                <Stack.Screen name={"nextwallet"} component={Antarwallet} options= {{headerShown: false}}/>
+                <Stack.Screen name={"nextpoupberanda"} component={Beranda} options= {{headerShown: false}}/>
             </Stack.Navigator>
         </NavigationContainer>
         </>

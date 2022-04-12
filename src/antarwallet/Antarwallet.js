@@ -1,11 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import {Text,View,StyleSheet,TouchableOpacity,ImageBackground} from "react-native";
 import { Input } from 'react-native-elements';
 import { bgcash } from "../assets";
 import { Userlogin } from "../assets";
 
+import { useDispatch } from "react-redux";
+import { setTransfer } from "../redux/action";
+import { setPintujuan } from "../redux/action";
+
 
 export const Antarwallet = ({navigation}) => {
+    const satu =useDispatch();
+    const dua =useDispatch();
+
+    const [totalTransfer, setTotalTransfer ] = useState(0); //redux state
+    console.log(totalTransfer);
+
+    const [totalPintujuan, setTotalTujuanpin ] = useState(0); //redux state
+    console.log(totalPintujuan);
+
+
     return (
         <>
          <View style={styles.containerTop}>
@@ -20,17 +34,25 @@ export const Antarwallet = ({navigation}) => {
                         placeholder=''
                         labelStyle={styles.inputLabel}
                         inputContainerStyle={styles.inputContainer}
+                        onChangeText={(e) => {
+                            setTotalTransfer(e);
+                            }}
                     />
                      <Input
                         label={"Masukan Pin Tujuan"}
                         placeholder=''
                         labelStyle={styles.inputLabel}
                         inputContainerStyle={styles.inputContainer}
+                        onChangeText={(e) => {
+                            setTotalTujuanpin(e);
+                            }}
                     />
         </ImageBackground>
         <TouchableOpacity style={[styles.buttonqrdua, { height: 60,width:250, }]}
          onPress={() => {
-                navigation.navigate('nextberhasil');
+                satu(setTransfer(totalTransfer));
+                dua(setPintujuan(totalPintujuan));
+                navigation.navigate('nextpin');
                 }}>
         <Text style={{ color: "white", fontSize: 18,left:60,top:12, }}>Transfer Saldo</Text>
         </TouchableOpacity>
@@ -52,7 +74,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#1B5E20',
         borderRadius: 10,
         left:75,
-        top:-380,
+        top:-440,
     },
     oke:{
         height:770,

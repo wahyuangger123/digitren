@@ -1,29 +1,27 @@
-import React, {useState} from "react";
+import React,{useState} from "react";
 import {Text,View,StyleSheet,TouchableOpacity,ImageBackground} from "react-native";
 import { Input } from 'react-native-elements';
 import { bgcash } from "../assets";
 import { Userlogin } from "../assets";
+
 import { useSelector } from "react-redux";
 
 import { useDispatch } from "react-redux";
-import { setPinakses } from "../redux/action";
+import { setMasukanpin } from "../redux/action";
 
-export const Pinsantri = ({navigation}) => {
-const akses =useDispatch();
+export const Pinantarwallet = ({navigation}) => {
+    const masuk =useDispatch();
 
-const [totalAkses, setTotalAkses ] = useState(0); //redux state
-console.log(totalAkses);
+    const [totalMasukanpin, setTotalMasukan ] = useState(0); //redux state
+    console.log(totalMasukanpin);
 
 
+    const totalTransfer =useSelector ((state) => state.totalTransfer);
+    console.log("Halaman Pinantarwallet: ",totalTransfer);
 
-const totalPayment =useSelector ((state) => state.totalPayment);
-console.log("Halaman Pin: ",totalPayment);
+    const totalPintujuan =useSelector ((state) => state.totalPintujuan);
+    console.log("Halaman Pinantarwallet: ",totalPintujuan);
 
-const totalRingkasan =useSelector ((state) => state.totalRingkasan);
-console.log("Halaman Pin: ",totalRingkasan);
-
-const totalIdtujuan =useSelector ((state) => state.totalIdtujuan);
-console.log("Halaman Pin: ",totalIdtujuan);
 
 
     return (
@@ -41,14 +39,14 @@ console.log("Halaman Pin: ",totalIdtujuan);
                         labelStyle={styles.inputLabel}
                         inputContainerStyle={styles.inputContainer}
                         onChangeText={(e) => {
-                            setTotalAkses (e);
+                            setTotalMasukan(e);
                             }}
                     />
         </ImageBackground>
         <TouchableOpacity style={[styles.buttonqrdua, { height: 60,width:250, }]}
          onPress={() => {
-                akses(setPinakses(totalAkses));
-                navigation.navigate('Pinnext');
+                masuk(setMasukanpin(totalMasukanpin))
+                navigation.navigate('nextberhasil');
                 }}>
         <Text style={{ color: "white", fontSize: 18,left:60,top:12, }}>Masukan Pin</Text>
         </TouchableOpacity>

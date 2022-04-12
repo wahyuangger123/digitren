@@ -1,13 +1,39 @@
 import React, {useState,useEffect} from "react";
-import {Text ,StyleSheet,View,TouchableOpacity,ImageBackground} from "react-native";
+import {Text ,StyleSheet,View,TouchableOpacity,ImageBackground,FlatList} from "react-native";
 import { Userlogin } from "../assets";
 import currencyFormatter from "../HelperFunction/formatter";
 import axios from "axios";
+import { Newscard } from "../wallet/Newscard";
+import Berita from "../service/Berita";
 
 const BASE_PATH ="http://17f8-182-253-183-2.ngrok.io";
 const userID= 13;
 
 export const Wallet = ({navigation}) => {
+    const [news,setNews] = useState([])
+
+    useEffect (() =>{
+        getNewsFromAPI()
+    },[])
+
+    // const newsResponse = async()=> {
+    //     const response = await Berita.get('top-headlines?country=us&apiKey=318604fac0164db5aadf5971f7c553f9')
+    //     console.log(response.data);
+    // }
+
+    function getNewsFromAPI(){
+        Berita.get('top-headlines?country=us&apiKey=318604fac0164db5aadf5971f7c553f9')
+        .then(async function (response) {
+            setNews(response.data);
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+}
+    if (!news){
+        return null
+    }
+
     const [saldo,setSaldo] = useState(0);
         
     async function getsaldo(){
@@ -53,7 +79,14 @@ export const Wallet = ({navigation}) => {
                 }}>
                     <Text style={{ color: "black", fontSize: 18,left:70,top:10, }}>Riwayat</Text>
         </TouchableOpacity>
+        <Text style={{ color: "black", fontSize: 30,left:10,top:10, }}>News</Text>
         </View>
+        <FlatList data={news.articles}
+        keyExtractor={(item,index) => 'Key' + index}
+        renderItem={({item}) => {
+            return <Newscard item = {item}/>
+        }}
+        />
         </View>
         </>
     );

@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/blur": "^3.6.0",
+    "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/material-top-tabs": "^6.1.1",
     "@react-navigation/native": "^6.0.8",
@@ -42,7 +43,10 @@
     "react-native-tab-view": "^3.1.1",
     "react-native-vision-camera": "^2.12.2",
     "react-native-web": "0.17.1",
+    "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
     "yet": "^0.1.0"
   },
   "devDependencies": {

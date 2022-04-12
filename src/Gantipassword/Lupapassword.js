@@ -1,5 +1,5 @@
 import React from "react";
-import {Modal,Animated,Text ,View,ImageBackground,StyleSheet,TouchableOpacity} from "react-native";
+import {ScrollView, Modal,Animated,Text ,View,ImageBackground,StyleSheet,TouchableOpacity} from "react-native";
 import { bglupapassword } from "../assets";
 import { Input } from "react-native-elements";
 
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     containerBottom: {
-        flex:1,
-        backgroundColor:'white' ,
+        height:880,
+        width:410,
     },
     userdua:{
         flex:1,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#1B5E20',
         borderRadius: 10,
         left:80,
-        top:-260,
+        top:-300,
     },
     header: {
         width: '100%',

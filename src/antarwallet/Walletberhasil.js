@@ -2,17 +2,22 @@ import React from "react";
 import {Text ,View,ImageBackground,StyleSheet,TouchableOpacity} from "react-native";
 import { Paysucces } from "../assets";
 
+import { useSelector } from "react-redux";
+
 
 export const Walletberhasil = ({navigation}) => {
+
+    const totalMasukanpin =useSelector ((state) => state.totalMasukanpin);
+    console.log("Halaman Transferberhasil: ",totalMasukanpin);
+
+
     return (
         <>
         <View style={styles.containerBottom}>
          <ImageBackground source={Paysucces} style={styles.userdua}>
             </ImageBackground>
-        <Text style={styles.tran}>Nomer Tranksaksi 32332309</Text>
-        <Text style={styles.wallet}>Wallet : Rp.123</Text>
-        <Text style={styles.tunai}>Tunai: Rp.123</Text>
-        <Text style={styles.jumlah}>Total Pembayaran: Rp.123</Text>
+        <Text style={styles.tran}>Nomer Transfer 32332309</Text>
+        <Text style={styles.wallet}>Sisa Wallet : Rp.123</Text>
         <TouchableOpacity style={[styles.buttonqrdua, { height: 60,width:250, }]}
          onPress={() => {
                 navigation.navigate('nextberandawallet');
@@ -39,7 +44,7 @@ const styles = StyleSheet.create({
         top:10,
     },
     wallet:{
-        left:150,
+        left:140,
         top:80,
     },
     tunai:{

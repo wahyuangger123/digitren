@@ -41,6 +41,7 @@ export const Barcode = ({navigation}) => {
       </Camera>
         </View>
         <View style={styles.containerBottom}>
+          <Text style={{left:50,top:20,fontSize:20,}}>Arahkan kamera ke QR penerima</Text>
         <ImageBackground source={ buttonqr } style={styles.oke}>
         <TouchableOpacity style={[styles.buttonbayar, { height: 81,width:62, }]}
          onPress={() => {
@@ -48,24 +49,25 @@ export const Barcode = ({navigation}) => {
                 }}>
         </TouchableOpacity>
         </ImageBackground>
-        <Text style={{left:175,top:-10,}}>Rp.50000</Text>
+        <Text style={{left:175,top:50,fontSize:20,width:80,color:'#9E9E9E'}}>PAKAI KODE</Text>
         </View>
         </>
     );
 };
 const styles = StyleSheet.create({
     containerCenter: {
-        height:500,
+        height:470,
         backgroundColor:'#E0E0E0' ,
     },
     containerBottom: {
-        height:320,
+        height:350,
         backgroundColor:'white' ,
     },
     oke: {
-        height:258,
-        width:150,
-        left:130,
+        height:110,
+        width:109,
+        left:150,
+        top:50,
     },
     camera: {
         height:500,
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     },
     buttonbayar: {
       backgroundColor:'transparent',
-        left:40,
-        top:48,
+        left:22,
+        top:15,
     },
 })

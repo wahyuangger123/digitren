@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import {Text,View,ImageBackground,StyleSheet,TouchableOpacity} from "react-native";
 import { Userlogin } from "../assets";
 
 export const Bayar = ({navigation}) => {
+
     return (
         <>
         <View style={styles.containerTop}>

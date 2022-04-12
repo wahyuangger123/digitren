@@ -1,9 +1,16 @@
 import React from "react";
 import {Text ,View,ImageBackground,StyleSheet,TouchableOpacity} from "react-native";
 import { Paysucces } from "../assets";
+import { useSelector } from "react-redux";
 
 
 export const Bayarberhasil = ({navigation}) => {
+
+    const totalPinakses=useSelector ((state) => state.totalPinakses);
+console.log("Halaman Pin Berhasil: ",totalPinakses);
+
+
+
     return (
         <>
         <View style={styles.containerBottom}>

@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button,Linking,ImageBackground,TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Button,Linking,TouchableOpacity } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import { buttonqr } from '../assets';
+import { Input } from 'react-native-elements';
+import { useDispatch } from "react-redux";
+import { setNominal } from '../redux/action';
 
 export const Scan = ({navigation}) =>  {
+  const oke =useDispatch();
+
+  const [totalNominal, setTotalNominal ] = useState(0); //redux state
+  console.log(totalNominal);
+
+
+
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -36,14 +45,27 @@ export const Scan = ({navigation}) =>  {
       />
     </View>
     <View style={styles.containerBottom}>
-        <ImageBackground source={ buttonqr } style={styles.oke}>
-        <TouchableOpacity style={[styles.buttonbayar, {  height: 81,width:62, }]}
+    <Text style={{left:10,top:20,fontSize:20,}}>Anda akan melakukan tranksaksi tujuan</Text>
+    <Text style={{left:115,top:25,}}>Nama   :warung bakso jumaidi</Text>
+    <Text style={{left:115,top:25,}}>Alamat :jl merdeka raya</Text>
+    <Input
+                        label={"Masukan nominal"}
+                        placeholder={'500'}
+                        labelStyle={styles.inputLabel}
+                        inputContainerStyle={styles.inputContainer}
+                        onChangeText={(e) => {
+                          setTotalNominal(e);
+                          }}
+                    />
+        <Text style={{left:155,top:35,}}>Wallet :10000</Text>
+    <Text style={{left:155,top:40,}}>Tunai  :5000</Text>
+        <TouchableOpacity style={[styles.buttonqrdua, { height: 60,width:250, }]}
          onPress={() => {
+                oke(setNominal(totalNominal));
                 navigation.navigate('Nextberanda');
                 }}>
+        <Text style={{ color: "white", fontSize: 18,left:100,top:12, }}>Bayar</Text>
         </TouchableOpacity>
-        </ImageBackground>
-        <Text style={{left:175,top:-10,}}>Rp.50000</Text>
         </View>
     </>
   );
@@ -51,27 +73,38 @@ export const Scan = ({navigation}) =>  {
 
 const styles = StyleSheet.create({
     container: {
-        height:500,
+        height:470,
         backgroundColor:'black',
     },
     scann: {
       flex:1,
   },
     containerBottom: {
-      height:320,
+      height:350,
       backgroundColor:'white' ,
-    },
-    oke: {
-      height:258,
-      width:150,
-      left:130,
-    },
-    buttonbayar: {
-      backgroundColor:'transparent',
-      left:40,
-      top:48,
     },
     title:{
       color:'black',
     },
+    inputLabel: {
+      paddingLeft: 130,
+      fontSize: 15,
+      top: 38,
+      color:'black',
+  },
+  inputContainer: {
+    height: 35,
+    width:380,
+    borderWidth: 1,
+    borderColor: "#5CA55C",
+    padding: 10,
+    top:55,
+    left:5,
+  },
+  buttonqrdua:{
+    backgroundColor:'#1B5E20',
+    borderRadius: 10,
+    left:85,
+    top:50,
+},
 })

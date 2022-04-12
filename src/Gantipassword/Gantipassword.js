@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     containerBottom: {
-        flex:1,
-        backgroundColor:'white' ,
+        height:880,
+        width:410,
     },
     userdua:{
         flex:1,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#1B5E20',
         borderRadius: 10,
         left:80,
-        top:-160,
+        top:-260,
     },
     header: {
         width: '100%',

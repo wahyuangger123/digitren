@@ -18,6 +18,9 @@ import histori from './histori.png'
 import Pembayaran from './Pembayaran.png'
 import bggantipassword from './bggantipassword.png'
 import bglupapassword from './bglupapassword.png'
+import dompet from './dompet.png'
+import barcode from './barcode.png'
+import tunjuk from './tunjuk.png'
 
 
-export {bglupapassword,bggantipassword,Pembayaran,histori,dropdownsatu,dropdowndua,dropdowntiga,gambartiga,gambardua,gambarsatu,Paysucces,LoginPage,walletsatu,navbar,tigahome,iconwallet,Userlogin,bayar,buttonqr,bgcash};
+export {tunjuk,barcode,dompet,bglupapassword,bggantipassword,Pembayaran,histori,dropdownsatu,dropdowndua,dropdowntiga,gambartiga,gambardua,gambarsatu,Paysucces,LoginPage,walletsatu,navbar,tigahome,iconwallet,Userlogin,bayar,buttonqr,bgcash};
