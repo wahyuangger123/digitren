@@ -21,6 +21,9 @@ import bglupapassword from './bglupapassword.png'
 import dompet from './dompet.png'
 import barcode from './barcode.png'
 import tunjuk from './tunjuk.png'
+import iconbayar from './iconbayar.png'
+import iconsaldo from './iconsaldo.png'
+import icontransfer from './icontransfer.png'
 
 
-export {tunjuk,barcode,dompet,bglupapassword,bggantipassword,Pembayaran,histori,dropdownsatu,dropdowndua,dropdowntiga,gambartiga,gambardua,gambarsatu,Paysucces,LoginPage,walletsatu,navbar,tigahome,iconwallet,Userlogin,bayar,buttonqr,bgcash};
+export {icontransfer,iconsaldo,iconbayar,tunjuk,barcode,dompet,bglupapassword,bggantipassword,Pembayaran,histori,dropdownsatu,dropdowndua,dropdowntiga,gambartiga,gambardua,gambarsatu,Paysucces,LoginPage,walletsatu,navbar,tigahome,iconwallet,Userlogin,bayar,buttonqr,bgcash};

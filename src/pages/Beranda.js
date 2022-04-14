@@ -12,6 +12,10 @@ import currencyFormatter from "../HelperFunction/formatter";
 import { Avatar, Button } from "react-native-paper";
 import { launchImageLibrary } from "react-native-image-picker";
 import { useSelector } from "react-redux";
+import { dompet } from "../assets";
+import { iconbayar } from "../assets";
+import { iconsaldo } from "../assets";
+import { icontransfer } from "../assets";
 // import { BlurView } from "@react-native-community/blur";
 // import { Button } from "react-native-elements";
 
@@ -154,27 +158,39 @@ const removeImage =() => {
                 </View>
                 <View style={styles.containerCenter}>
                     <ImageBackground source={iconwallet} style={styles.iconw}>
-                        <Text style={styles.usertiga}>Rp{currencyFormatter(saldo)}</Text>
-                        <TouchableOpacity style={[styles.buttonbayar, { height: 35, width: 28, }]}
-                            onPress={() => {
-                                navigation.navigate('Bayar');
-                            }}>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.buttonisisaldo, { height: 35, width: 28, }]}
-                            onPress={() => {
-                                navigation.navigate('isisaldo');
-                            }}>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.buttontransfer, { height: 35, width: 28, }]}
-                            onPress={() => {
-                                navigation.navigate('transferantarwallet');
-                            }}>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={[styles.buttonhistori, { height: 25, width: 100, }]}
+                        <View style={styles.card}>
+                        <ImageBackground source={dompet} style={styles.cardtiga}>
+                        <Text style={{width:80, fontSize:20, marginLeft:35,}}>Wallet</Text>
+                        </ImageBackground>
+                        <Text style={styles.usertiga}>Rp.{currencyFormatter(saldo)}</Text>
+                        <TouchableOpacity style={[styles.buttonhistori, { height: 30, width: 150, }]}
                             onPress={() => {
                                 navigation.navigate('antarhistori');
                             }}>
+                        <Text style={{ fontSize:15,width:150}}>Riwayat Tranksaksi</Text>
                         </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity style={[styles.cardsatu]}
+                            onPress={() => {
+                                navigation.navigate('Bayar');
+                            }}>
+                        <Image source={iconbayar} style={{height:30,width:30,left:5,top:5,}}></Image>
+                        </TouchableOpacity>
+                        <Text style={{ fontSize:12,width:45,left:205,bottom:80,}}>Bayar</Text>
+                        <TouchableOpacity style={[styles.carddua]}
+                            onPress={() => {
+                                navigation.navigate('isisaldo');
+                            }}>
+                        <Image source={iconsaldo} style={{height:30,width:30,left:5,top:5,}}></Image>
+                        </TouchableOpacity>
+                        <Text style={{ fontSize:12,width:65,left:260,bottom:138,}}>Isi saldo</Text>
+                        <TouchableOpacity style={[styles.cardempat]}
+                            onPress={() => {
+                                navigation.navigate('transferantarwallet');
+                            }}>
+                        <Image source={icontransfer} style={{height:30,width:30,left:5,top:5,}}></Image>
+                        </TouchableOpacity>
+                        <Text style={{ fontSize:12,width:65,left:323,bottom:196,}}>Transfer</Text>
                     </ImageBackground>
                     <ImageBackground source={tigahome} style={styles.userempat}>
                     </ImageBackground>
@@ -252,39 +268,25 @@ const styles = StyleSheet.create({
 
     },
     iconw: {
-        height: 170,
-        width: 400,
-        left: 3,
-        top: 1,
+        height: 155,
+        width: 380,
+        left: 15,
+        top: 5,
     },
     ya: {
         bottom: -50,
         left: 181,
     },
-    buttonbayar: {
-        backgroundColor: 'transparent',
-        left: 205,
-        top: 32,
-    },
-    buttonisisaldo: {
-        backgroundColor: 'transparent',
-        left: 277,
-        top: 0,
-    },
     buttontransfer: {
-        backgroundColor: 'transparent',
+        backgroundColor: 'black',
         left: 345,
-        top: -35,
-    },
-    buttonhistori: {
-        backgroundColor: 'transparent',
-        left: 60,
-        top: -25,
+        bottom: 40,
     },
     usertiga: {
-        left: 85,
-        top: 55,
-        fontSize: 18,
+        left: 45,
+        top: 10,
+        fontSize: 24,
+
     },
     userempat: {
         height: 90,
@@ -302,5 +304,51 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 50,
         alignItems: "flex-end",
+    },
+    card: {
+        borderRadius:10,
+        height:120,
+        width:180,
+        backgroundColor:'white',
+        left:10,
+        top:10,
+    },
+    cardtiga: {
+        height: 30,
+        width: 30,
+        top:5,
+        left:15,
+    },
+    buttonhistori:{
+        backgroundColor:'transparent',
+        left:15,
+        top:15,
+    },
+    cardsatu:{
+        borderRadius:10,
+        height:40,
+        width:40,
+        backgroundColor:'white',
+        left:200,
+        bottom:80,
+
+    },
+    carddua:{
+        borderRadius:10,
+        height:40,
+        width:40,
+        backgroundColor:'white',
+        left:265,
+        bottom:138,
+
+    },
+    cardempat:{
+        borderRadius:10,
+        height:40,
+        width:40,
+        backgroundColor:'white',
+        left:330,
+        bottom:196,
+
     },
 });
